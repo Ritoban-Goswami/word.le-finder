@@ -4,7 +4,7 @@ import logo from "../../public/logo.svg";
 
 export default function NavBar() {
   return (
-    <header className="flex w-full shrink-0 items-center px-4 md:px-6">
+    <header className="fixed top-0 z-50 flex w-full shrink-0 items-center px-4 md:px-6">
       <Link className="my-0.5" href="/">
         <Image
           src={logo}

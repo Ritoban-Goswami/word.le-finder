@@ -7,6 +7,10 @@ import { z } from "zod";
 import { Form, FormDescription, FormLabel } from "./ui/form";
 import { Button } from "./ui/button";
 import GreenLetterInput from "./GreenLetterInput";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { Badge } from "./ui/badge";
+import TypographyH4 from "./TypographyH4";
 
 const FormSchema = z.object({
   greenLetter1: z.string().optional(),
@@ -17,6 +21,8 @@ const FormSchema = z.object({
 });
 
 const Card = () => {
+  const [wordSuggestions, setWordSuggestions] = useState([]);
+
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -28,8 +34,24 @@ const Card = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data, null, 2));
+  const getWordSuggestions = async (wordData) => {
+    try {
+      const res = await fetch(`api/find-word`, {
+        method: "POST",
+        body: JSON.stringify(wordData),
+      });
+
+      const data = await res.json();
+      setWordSuggestions(data);
+    } catch (err) {
+      console.log(err);
+      return [];
+    }
+  };
+
+  const onSubmit = async (data) => {
+    await getWordSuggestions(data);
+    console.log(wordSuggestions);
   };
 
   return (
@@ -42,9 +64,30 @@ const Card = () => {
             Please enter the letters which are in the word and in correct
             position.
           </FormDescription>
-          <Button type="submit">Find</Button>
+          <Button
+            className="w-20"
+            type="submit"
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting && (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            )}
+            Find
+          </Button>
         </form>
       </Form>
+      {wordSuggestions.length > 0 && (
+        <div className="mt-6">
+          <TypographyH4>Found Words:</TypographyH4>
+          <div className="mt-3 flex flex-wrap gap-x-1.5 gap-y-2">
+            {wordSuggestions.map((suggestion, index) => (
+              <Badge key={index} variant="outline">
+                {suggestion.word}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

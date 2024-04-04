@@ -7,6 +7,7 @@ import { z } from "zod";
 import { Form, FormDescription, FormLabel } from "./ui/form";
 import { Button } from "./ui/button";
 import GreenLetterInput from "./GreenLetterInput";
+import YellowLetterInput from "./YellowLetterInput";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Badge } from "./ui/badge";
@@ -18,6 +19,11 @@ const FormSchema = z.object({
   greenLetter3: z.string().optional(),
   greenLetter4: z.string().optional(),
   greenLetter5: z.string().optional(),
+  yellowLetter1: z.string().optional(),
+  yellowLetter2: z.string().optional(),
+  yellowLetter3: z.string().optional(),
+  yellowLetter4: z.string().optional(),
+  yellowLetter5: z.string().optional(),
 });
 
 const Card = () => {
@@ -31,6 +37,11 @@ const Card = () => {
       greenLetter3: "",
       greenLetter4: "",
       greenLetter5: "",
+      yellowLetter1: "",
+      yellowLetter2: "",
+      yellowLetter3: "",
+      yellowLetter4: "",
+      yellowLetter5: "",
     },
   });
 
@@ -50,8 +61,36 @@ const Card = () => {
   };
 
   const onSubmit = async (data) => {
-    await getWordSuggestions(data);
-    console.log(wordSuggestions);
+    const {
+      greenLetter1,
+      greenLetter2,
+      greenLetter3,
+      greenLetter4,
+      greenLetter5,
+      yellowLetter1,
+      yellowLetter2,
+      yellowLetter3,
+      yellowLetter4,
+      yellowLetter5,
+    } = data;
+
+    const formattedData = {
+      greenLetters: [
+        greenLetter1,
+        greenLetter2,
+        greenLetter3,
+        greenLetter4,
+        greenLetter5,
+      ],
+      yellowLetters: [
+        yellowLetter1,
+        yellowLetter2,
+        yellowLetter3,
+        yellowLetter4,
+        yellowLetter5,
+      ],
+    };
+    await getWordSuggestions(formattedData);
   };
 
   return (
@@ -62,6 +101,13 @@ const Card = () => {
           <GreenLetterInput form={form} />
           <FormDescription>
             Please enter the letters which are in the word and in correct
+            position.
+          </FormDescription>
+
+          <FormLabel>Enter the Yellow Letters</FormLabel>
+          <YellowLetterInput form={form} />
+          <FormDescription>
+            Please enter the letters which are in the word but not in correct
             position.
           </FormDescription>
           <Button

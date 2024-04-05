@@ -8,6 +8,7 @@ import { Form, FormDescription, FormLabel } from "./ui/form";
 import { Button } from "./ui/button";
 import GreenLetterInput from "./GreenLetterInput";
 import YellowLetterInput from "./YellowLetterInput";
+import GreyLetterInput from "./GreyLetterInput";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Badge } from "./ui/badge";
@@ -24,6 +25,11 @@ const FormSchema = z.object({
   yellowLetter3: z.string().optional(),
   yellowLetter4: z.string().optional(),
   yellowLetter5: z.string().optional(),
+  greyLetter1: z.string().optional(),
+  greyLetter2: z.string().optional(),
+  greyLetter3: z.string().optional(),
+  greyLetter4: z.string().optional(),
+  greyLetter5: z.string().optional(),
 });
 
 const Card = () => {
@@ -42,6 +48,11 @@ const Card = () => {
       yellowLetter3: "",
       yellowLetter4: "",
       yellowLetter5: "",
+      greyLetter1: "",
+      greyLetter2: "",
+      greyLetter3: "",
+      greyLetter4: "",
+      greyLetter5: "",
     },
   });
 
@@ -72,6 +83,11 @@ const Card = () => {
       yellowLetter3,
       yellowLetter4,
       yellowLetter5,
+      greyLetter1,
+      greyLetter2,
+      greyLetter3,
+      greyLetter4,
+      greyLetter5,
     } = data;
 
     const formattedData = {
@@ -88,6 +104,13 @@ const Card = () => {
         yellowLetter3,
         yellowLetter4,
         yellowLetter5,
+      ],
+      greyLetters: [
+        greyLetter1,
+        greyLetter2,
+        greyLetter3,
+        greyLetter4,
+        greyLetter5,
       ],
     };
     await getWordSuggestions(formattedData);
@@ -109,6 +132,12 @@ const Card = () => {
           <FormDescription>
             Please enter the letters which are in the word but not in correct
             position.
+          </FormDescription>
+
+          <FormLabel>Enter the Grey Letters</FormLabel>
+          <GreyLetterInput form={form} />
+          <FormDescription>
+            Please enter the letters which are not in the word.
           </FormDescription>
           <Button
             className="w-20"

@@ -13,6 +13,14 @@ async function fetchFilteredWords(greenLetters, yellowLetters) {
     // }
     const greenFilteredWords = await response.json();
 
+    // Check if yellowLetters contains only empty strings
+    const allYellowEmpty = yellowLetters.every(letter => letter === "");
+
+    if (allYellowEmpty) {
+        const filteredMeaningfulWords = await filterWordsWithMeaning(greenFilteredWords);
+        return filteredMeaningfulWords;
+    }
+
     const yellowFilteredWords = greenFilteredWords.filter(wordObject => {
         const word = wordObject.word.toUpperCase();
         for (let i = 0; i < yellowLetters.length; i++) {

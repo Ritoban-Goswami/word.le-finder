@@ -34,6 +34,7 @@ const FormSchema = z.object({
 
 const Card = () => {
   const [wordSuggestions, setWordSuggestions] = useState([]);
+  const [formEmpty, setFormEmpty] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(FormSchema),
@@ -72,6 +73,14 @@ const Card = () => {
   };
 
   const onSubmit = async (data) => {
+    // Check if all fields are empty, not using zod as it attaches error message to a certain field.
+    const allFieldsEmpty = Object.values(data).every((value) => !value);
+    if (allFieldsEmpty) {
+      setFormEmpty(true);
+      return;
+    }
+    setFormEmpty(false);
+
     const {
       greenLetter1,
       greenLetter2,
@@ -149,6 +158,11 @@ const Card = () => {
             )}
             Find
           </Button>
+          {formEmpty && (
+            <p className="text-sm font-bold text-red-500">
+              You have to provide at least one letter to get hints.{" "}
+            </p>
+          )}
         </form>
       </Form>
       {wordSuggestions.length > 0 && (

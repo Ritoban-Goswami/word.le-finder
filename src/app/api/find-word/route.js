@@ -52,18 +52,25 @@ async function fetchFilteredWords(greenLetters, yellowLetters, greyLetters) {
 
 const filterWordsWithMeaning = async (words) => {
     const wordsWithMeaning = await Promise.all(words.map(async (wordObj) => {
-        return await fetchMeaning(wordObj.word);
+        const meaning = await fetchMeaning(wordObj.word);
+        return { word: wordObj.word, meaning: meaning };
     }));
 
-    return words.filter((_, index) => wordsWithMeaning[index]);
+    return wordsWithMeaning.filter(word => word.meaning);
 };
 
 const fetchMeaning = async (word) => {
     try {
         const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-        return res.status === 200;
+        if (res.ok) {
+            const [data] = await res.json();
+            const meaning = data?.meanings?.[0]?.definitions?.[0]?.definition || null;
+            return meaning;
+        } else {
+            return null;
+        }
     } catch (err) {
         console.error("Error occurred during fetchMeaning:", err);
-        return false;
+        return null;
     }
 };

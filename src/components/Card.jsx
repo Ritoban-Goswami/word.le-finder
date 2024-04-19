@@ -13,6 +13,12 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Badge } from "./ui/badge";
 import TypographyH4 from "./TypographyH4";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 const FormSchema = z.object({
   greenLetter1: z.string().optional(),
@@ -169,11 +175,18 @@ const Card = () => {
         <div className="mt-6">
           <TypographyH4>Found Words:</TypographyH4>
           <div className="mt-3 flex flex-wrap gap-x-1.5 gap-y-2">
-            {wordSuggestions.map((suggestion, index) => (
-              <Badge key={index} variant="outline">
-                {suggestion.word}
-              </Badge>
-            ))}
+            <TooltipProvider>
+              {wordSuggestions.map((suggestion, index) => (
+                <Tooltip>
+                  <TooltipTrigger key={index}>
+                    <Badge variant="outline">{suggestion.word}</Badge>
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-72">
+                    <span>{suggestion.meaning}</span>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </TooltipProvider>
           </div>
         </div>
       )}

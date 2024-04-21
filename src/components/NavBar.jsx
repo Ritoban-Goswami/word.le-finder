@@ -4,11 +4,11 @@ import logo from "../../public/logo.svg";
 
 export default function NavBar() {
   return (
-    <header className="fixed top-0 z-50 flex w-full shrink-0 items-center px-4 md:px-6">
+    <header className="flex w-full shrink-0 items-center px-4 md:px-6 h-[10vh]">
       <Link className="my-0.5" href="/">
         <Image
           src={logo}
-          className="w-32 h-32"
+          className="w-28 h-28"
           alt="Word(le) Finder"
           priority
         />

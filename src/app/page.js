@@ -1,10 +1,11 @@
 import Card from "@/components/Card";
-import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex justify-center items-center min-h-screen">
-      <Card />
-    </main>
+    <>
+      <main className="grid grid-cols-3 gap-x-6 content-center mx-auto w-[80vw] 2xl:w-[65vw] min-h-[80vh]">
+        <Card />
+      </main>
+    </>
   );
 }

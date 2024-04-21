@@ -4,21 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Form, FormDescription, FormLabel } from "./ui/form";
+import { Form } from "./ui/form";
 import { Button } from "./ui/button";
 import GreenLetterInput from "./GreenLetterInput";
 import YellowLetterInput from "./YellowLetterInput";
 import GreyLetterInput from "./GreyLetterInput";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
-import { Badge } from "./ui/badge";
-import TypographyH4 from "./TypographyH4";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./ui/tooltip";
+import Suggestions from "./Suggestions";
 
 const FormSchema = z.object({
   greenLetter1: z.string().optional(),
@@ -132,65 +125,33 @@ const Card = () => {
   };
 
   return (
-    <div className="p-6 max-w-sm rounded overflow-hidden shadow-lg">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormLabel>Enter the Green Letters</FormLabel>
-          <GreenLetterInput form={form} />
-          <FormDescription>
-            Please enter the letters which are in the word and in correct
-            position.
-          </FormDescription>
-
-          <FormLabel>Enter the Yellow Letters</FormLabel>
-          <YellowLetterInput form={form} />
-          <FormDescription>
-            Please enter the letters which are in the word but not in correct
-            position.
-          </FormDescription>
-
-          <FormLabel>Enter the Grey Letters</FormLabel>
-          <GreyLetterInput form={form} />
-          <FormDescription>
-            Please enter the letters which are not in the word.
-          </FormDescription>
-          <Button
-            className="w-20"
-            type="submit"
-            disabled={form.formState.isSubmitting}
-          >
-            {form.formState.isSubmitting && (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+    <>
+      <div className="p-6 max-w-sm bg-background rounded-lg overflow-hidden shadow-lg">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <GreenLetterInput form={form} />
+            <YellowLetterInput form={form} />
+            <GreyLetterInput form={form} />
+            <Button
+              className="w-20"
+              type="submit"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting && (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              )}
+              Find
+            </Button>
+            {formEmpty && (
+              <p className="text-sm font-bold text-red-500">
+                You have to provide at least one letter to get hints.{" "}
+              </p>
             )}
-            Find
-          </Button>
-          {formEmpty && (
-            <p className="text-sm font-bold text-red-500">
-              You have to provide at least one letter to get hints.{" "}
-            </p>
-          )}
-        </form>
-      </Form>
-      {wordSuggestions.length > 0 && (
-        <div className="mt-6">
-          <TypographyH4>Found Words:</TypographyH4>
-          <div className="mt-3 flex flex-wrap gap-x-1.5 gap-y-2">
-            <TooltipProvider>
-              {wordSuggestions.map((suggestion, index) => (
-                <Tooltip>
-                  <TooltipTrigger key={index}>
-                    <Badge variant="outline">{suggestion.word}</Badge>
-                  </TooltipTrigger>
-                  <TooltipContent className="max-w-72">
-                    <span>{suggestion.meaning}</span>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
-            </TooltipProvider>
-          </div>
-        </div>
-      )}
-    </div>
+          </form>
+        </Form>
+      </div>
+      <Suggestions suggestions={wordSuggestions} />
+    </>
   );
 };
 

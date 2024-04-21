@@ -1,4 +1,11 @@
-import { FormControl, FormField, FormItem, FormMessage } from "./ui/form";
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
 import { Input } from "./ui/input";
 
 const YellowLetterInput = ({ form }) => {
@@ -11,25 +18,32 @@ const YellowLetterInput = ({ form }) => {
   ];
 
   return (
-    <div className="flex gap-x-1.5">
-      {fields.map((fieldName, index) => (
-        <FormField
-          key={index}
-          control={form.control}
-          name={fieldName}
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  className="bg-yellow-200 focus-visible:ring-yellow-400"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      ))}
+    <div>
+      <FormLabel className="font-semibold">Enter the Yellow Letters</FormLabel>
+      <div className="flex mt-3.5 mb-2 gap-x-1.5">
+        {fields.map((fieldName, index) => (
+          <FormField
+            key={index}
+            control={form.control}
+            name={fieldName}
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    className="bg-yellow-300 focus-visible:ring-yellow-400"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        ))}
+      </div>
+      <FormDescription>
+        Please enter the letters which are in the word but not in correct
+        position.
+      </FormDescription>
     </div>
   );
 };

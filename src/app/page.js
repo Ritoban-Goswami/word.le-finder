@@ -8,7 +8,7 @@ export default function Home() {
         <div className="flex flex-col items-center lg:grid lg:grid-cols-5 gap-x-10 gap-y-10 lg:gap-y-20 lg:items-start">
           <Card />
         </div>
-        <hr class="w-48 h-0.5 mx-auto mt-10 mb-5 bg-primary border-0 rounded md:my-20"></hr>
+        <hr className="w-48 h-0.5 mx-auto mt-10 mb-5 bg-primary border-0 rounded md:my-20"></hr>
         <HelperText className="col-span-5" />
       </main>
     </>

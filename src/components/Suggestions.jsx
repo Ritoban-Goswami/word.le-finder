@@ -14,7 +14,6 @@ import TypographyP from "./TypographyP";
 
 const Suggestions = ({ suggestions, className }) => {
   const isMobile = useClientMediaQuery("(max-width: 600px)");
-  console.log(isMobile);
   return (
     <div className={`${className}`}>
       <TypographyH3 className="text-primary uppercase">

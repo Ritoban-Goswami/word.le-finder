@@ -20,7 +20,7 @@ const GreyLetterInput = ({ form }) => {
   return (
     <div>
       <FormLabel className="font-semibold">Enter the Grey Letters</FormLabel>
-      <div className="flex mt-3.5 mb-2 gap-x-1.5">
+      <div className="flex justify-center mt-3.5 mb-2 gap-x-1.5">
         {fields.map((fieldName, index) => (
           <FormField
             key={index}

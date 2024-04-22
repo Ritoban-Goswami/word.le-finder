@@ -126,14 +126,17 @@ const Card = () => {
 
   return (
     <>
-      <div className="p-6 max-w-sm bg-background rounded-lg overflow-hidden shadow-lg">
+      <div className="sm:p-6 col-span-2 max-w-sm sm:bg-background sm:rounded-lg overflow-hidden sm:shadow-lg">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6 flex flex-col"
+          >
             <GreenLetterInput form={form} />
             <YellowLetterInput form={form} />
             <GreyLetterInput form={form} />
             <Button
-              className="w-20"
+              className="w-20 self-center"
               type="submit"
               disabled={form.formState.isSubmitting}
             >
@@ -150,7 +153,10 @@ const Card = () => {
           </form>
         </Form>
       </div>
-      <Suggestions suggestions={wordSuggestions} />
+      <Suggestions
+        className="col-span-3 w-full"
+        suggestions={wordSuggestions}
+      />
     </>
   );
 };

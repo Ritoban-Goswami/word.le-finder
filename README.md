@@ -4,7 +4,7 @@ Welcome to Word(le) Finder, a web project designed to help players of the popula
 
 ## Demo
 
-![](public\word.le_finder_demo.gif)
+![](https://github.com/Ritoban-Goswami/word.le-finder/blob/main/public/word.le_finder_demo.gif)
 
 ## Features
 

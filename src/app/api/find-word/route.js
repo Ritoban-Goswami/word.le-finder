@@ -1,9 +1,7 @@
-import { NextResponse } from 'next/server';
-
 export async function POST(request) {
     const { greenLetters, yellowLetters, greyLetters } = await request.json();
     const filteredWords = await fetchFilteredWords(greenLetters, yellowLetters, greyLetters);
-    return NextResponse.json(filteredWords);
+    return Response.json(filteredWords);
 }
 
 async function fetchFilteredWords(greenLetters, yellowLetters, greyLetters) {
@@ -36,9 +34,8 @@ async function fetchFilteredWords(greenLetters, yellowLetters, greyLetters) {
     if (!allGreyEmpty) {
         const greyFilteredWords = finalFilteredWords.filter(wordObject => {
             const word = wordObject.word.toUpperCase();
-            for (let i = 0; i < greyLetters.length; i++) {
-                const greyLetter = greyLetters[i];
-                if (greyLetter && word.includes(greyLetter)) {
+            for (let greyLetter of greyLetters) {
+                if (greyLetter !== '' && word.includes(greyLetter.toUpperCase())) {
                     return false;
                 }
             }

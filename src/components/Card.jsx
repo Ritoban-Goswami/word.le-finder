@@ -61,6 +61,7 @@ const Card = () => {
       const res = await fetch(`api/find-word`, {
         method: "POST",
         body: JSON.stringify(wordData),
+        cache: "no-store",
       });
 
       const data = await res.json();

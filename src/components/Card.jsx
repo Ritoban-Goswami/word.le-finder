@@ -24,11 +24,7 @@ const FormSchema = z.object({
   yellowLetter3: z.string().optional(),
   yellowLetter4: z.string().optional(),
   yellowLetter5: z.string().optional(),
-  greyLetter1: z.string().optional(),
-  greyLetter2: z.string().optional(),
-  greyLetter3: z.string().optional(),
-  greyLetter4: z.string().optional(),
-  greyLetter5: z.string().optional(),
+  greyLetters: z.string().optional(),
 });
 
 const Card = () => {
@@ -48,11 +44,7 @@ const Card = () => {
       yellowLetter3: "",
       yellowLetter4: "",
       yellowLetter5: "",
-      greyLetter1: "",
-      greyLetter2: "",
-      greyLetter3: "",
-      greyLetter4: "",
-      greyLetter5: "",
+      greyLetters: "",
     },
   });
 
@@ -92,11 +84,7 @@ const Card = () => {
       yellowLetter3,
       yellowLetter4,
       yellowLetter5,
-      greyLetter1,
-      greyLetter2,
-      greyLetter3,
-      greyLetter4,
-      greyLetter5,
+      greyLetters,
     } = data;
 
     const formattedData = {
@@ -114,13 +102,7 @@ const Card = () => {
         yellowLetter4,
         yellowLetter5,
       ],
-      greyLetters: [
-        greyLetter1,
-        greyLetter2,
-        greyLetter3,
-        greyLetter4,
-        greyLetter5,
-      ],
+      greyLetters: greyLetters,
     };
     await getWordSuggestions(formattedData);
   };

@@ -11,7 +11,6 @@ const Input = React.forwardRef(({ className, type, ...props }, ref) => {
         className
       )}
       ref={ref}
-      maxLength={1}
       autoComplete="off"
       {...props}
     />

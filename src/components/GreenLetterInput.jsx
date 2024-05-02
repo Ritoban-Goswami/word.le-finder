@@ -32,6 +32,7 @@ const GreenLetterInput = ({ form }) => {
               <FormItem>
                 <FormControl>
                   <Input
+                    maxLength={1}
                     className="bg-green-300 focus-visible:ring-green-400"
                     {...field}
                   />

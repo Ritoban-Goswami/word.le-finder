@@ -30,11 +30,12 @@ async function fetchFilteredWords(greenLetters, yellowLetters, greyLetters) {
         finalFilteredWords = yellowFilteredWords;
     }
 
-    const allGreyEmpty = greyLetters.every(letter => letter === "");
+    const greyLettersArr = greyLetters.split(',');
+    const allGreyEmpty = greyLettersArr.every(letter => letter === "");
     if (!allGreyEmpty) {
         const greyFilteredWords = finalFilteredWords.filter(wordObject => {
             const word = wordObject.word.toUpperCase();
-            for (let greyLetter of greyLetters) {
+            for (let greyLetter of greyLettersArr) {
                 if (greyLetter !== '' && word.includes(greyLetter.toUpperCase())) {
                     return false;
                 }

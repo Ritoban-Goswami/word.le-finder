@@ -30,6 +30,7 @@ const YellowLetterInput = ({ form }) => {
               <FormItem>
                 <FormControl>
                   <Input
+                    maxLength={1}
                     className="bg-yellow-300 focus-visible:ring-yellow-400"
                     {...field}
                   />

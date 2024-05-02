@@ -19,13 +19,16 @@ async function fetchFilteredWords(greenLetters, yellowLetters, greyLetters) {
     if (!allYellowEmpty) {
         const yellowFilteredWords = finalFilteredWords.filter(wordObject => {
             const word = wordObject.word.toUpperCase();
-            for (let i = 0; i < yellowLetters.length; i++) {
-                const yellowLetter = yellowLetters[i];
-                if (yellowLetter && word.includes(yellowLetter) && word[i] !== yellowLetter) {
-                    return true;
+            for (let yellowLetter of yellowLetters) {
+                if (yellowLetter !== '' && word.includes(yellowLetter.toUpperCase())) {
+                    let letterIndex = yellowLetters.indexOf(yellowLetter);
+                    let letterPosArr = word.split('').map((char, index) => char === yellowLetter.toUpperCase() ? index : -1).filter(index => index !== -1);
+                    if (letterPosArr.includes(letterIndex)) {
+                        return false;
+                    }
                 }
             }
-            return false;
+            return true;
         });
         finalFilteredWords = yellowFilteredWords;
     }
